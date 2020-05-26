@@ -5,6 +5,10 @@ import HomeContainer from './components/tabbars/HomeContainer.vue'
 import MemberContainer from './components/tabbars/MemberContainer.vue'
 import ShopcarContainer from './components/tabbars/ShopcarContainer.vue'
 import SearchContainer from './components/tabbars/SearchContainer.vue'
+import NewsList from './components/news/NewsList.vue'
+import NewsInfo from './components/news/NewsInfo.vue'
+import PhotoList from './components/photos/photoList.vue'
+
 
 const router = new VueRouter({
     routes:[
@@ -13,6 +17,9 @@ const router = new VueRouter({
         { path:'/member',component:MemberContainer },
         { path:'/shopcar',component:ShopcarContainer },
         { path:'/search',component:SearchContainer },
+        { path:'/home/newslist',component:NewsList },
+        { path: '/home/newsinfo/:id',component:NewsInfo,props:true }, // 启用props来接收路由的参数
+        { path:'/home/photolist',component:PhotoList },
     ],
     linkActiveClass:'mui-active' // 手动设置 被激活的 路由链接的高亮类名
 })

@@ -12,7 +12,10 @@
 
 
         <!-- 路由的容器坑 -->
-        <router-view></router-view>
+		<transition>
+		    <router-view></router-view>
+		</transition>
+
 
 
         <!-- tabbar 区域 -->
@@ -47,5 +50,25 @@ export default {
 <style lang="scss" scoped>
     .app-container{
         padding-top: 40px;
+		padding-bottom: 50px;
+		// 当有组件切换动效的时候，一瞬间，页面的宽度会变成 正常宽度的2倍，此时，需要隐藏超出屏幕宽度的区域
+		overflow: hidden;
     }
+	.v-enter{
+		opacity: 0;
+		// 让即将进入的页面，向右偏移100%屏幕的宽度
+		transform: translateX(100%);
+	}
+	.v-leave-to{
+		opacity: 0;
+		// 让即将退出的页面，向左偏移100%屏幕的宽度
+		transform: translateX(-100%);
+		position: absolute;
+	}
+	.v-enter-active,.v-leave-active{
+		transition: all 0.5s ease;
+	}
+	.mint-header{
+		z-index: 99;
+	}
 </style>
