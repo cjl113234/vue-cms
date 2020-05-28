@@ -1,14 +1,22 @@
 <template>
     <div>
         <!-- 轮播图区域 -->
-        <mt-swipe :auto="4000">
-            <!-- <mt-swipe-item v-for="(item,i) in lunbotu" :key='i'>
+        <!-- <mt-swipe :auto="4000"> -->
+            <!-- <mt-swipe-item></mt-swipe-item>
+            <mt-swipe-item></mt-swipe-item>
+            <mt-swipe-item></mt-swipe-item>
+        </mt-swipe> -->
+        <swiper></swiper>
+        <!-- <swiper :lunbotu="lunbotu" :imgname="img" :isfull="true"></swiper> -->
+
+
+
+        <!-- 轮播图区域 -->
+        <!-- <mt-swipe :auto="4000">
+            <mt-swipe-item v-for="(item,i) in lunbotu" :key='i'>
                 <img :src="item.img" alt="">
-            </mt-swipe-item> -->
-            <mt-swipe-item></mt-swipe-item>
-            <mt-swipe-item></mt-swipe-item>
-            <mt-swipe-item></mt-swipe-item>
-        </mt-swipe>
+            </mt-swipe-item>
+        </mt-swipe> -->
 
         <!-- 九宫格布局 -->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
@@ -18,9 +26,9 @@
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/home/photolist">
                     <img :src="imageShare" alt="">
                     <div class="mui-media-body">图片分享</div></router-link></li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/home/goodslist">
                     <img :src="shopcar" alt="">
-                    <div class="mui-media-body">商品购买</div></a></li>
+                    <div class="mui-media-body">商品购买</div></router-link></li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
                     <img :src="leave_a_message" alt="">
                     <div class="mui-media-body">留言反馈</div></a></li>
@@ -35,14 +43,20 @@
 </template>
 
 <script>
+// 导入自己封装的轮播图组件
+import swiper from '../sub-components/Swiper.vue'
+
+
+
+
 // 导入图片url相对路径地址
 
-import newsimg from '../../images/news.png'
-import imageShareimg from '../../images/imageShare.png'
-import shopcarimg from '../../images/shopcar.png'
-import leave_a_messageimg from '../../images/leave_a_message.png'
-import videoimg from '../../images/video.png'
-import contactimg from '../../images/contact.png'
+import news from '../../images/news.png'
+import imageShare from '../../images/imageShare.png'
+import shopcar from '../../images/shopcar.png'
+import leave_a_message from '../../images/leave_a_message.png'
+import video from '../../images/video.png'
+import contact from '../../images/contact.png'
 export default {
     
     data(){
@@ -51,12 +65,7 @@ export default {
 
 
             // 动态绑定图片
-            news: newsimg,
-            imageShare: imageShareimg,
-            shopcar: shopcarimg,
-            leave_a_message: leave_a_messageimg,
-            video: videoimg,
-            contact: contactimg,
+            news,imageShare,shopcar,leave_a_message,video,contact,
         };
     },
     // created(){
@@ -69,6 +78,10 @@ export default {
         //     console.log(data);
         //     if(data.status === 0) this.lunbotu = data.message;
         // }
+    },
+    components:{
+        // 注册子组件
+        swiper
     }
 }
 </script>

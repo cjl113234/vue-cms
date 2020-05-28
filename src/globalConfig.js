@@ -19,6 +19,10 @@ import './filters.js'
 
 
 
+// 安装图片预览的插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
 // // 配置axios
 // import axios from 'axios'
 // // 把axios挂在到Vue的原型对象上

@@ -8,6 +8,9 @@ import SearchContainer from './components/tabbars/SearchContainer.vue'
 import NewsList from './components/news/NewsList.vue'
 import NewsInfo from './components/news/NewsInfo.vue'
 import PhotoList from './components/photos/photoList.vue'
+import PhotoInfo from './components/photos/photoInfo.vue'
+import GoodsList from './components/goods/goodsList.vue'
+import GoodsInfo from './components/goods/goodsInfo.vue'
 
 
 const router = new VueRouter({
@@ -20,6 +23,10 @@ const router = new VueRouter({
         { path:'/home/newslist',component:NewsList },
         { path: '/home/newsinfo/:id',component:NewsInfo,props:true }, // 启用props来接收路由的参数
         { path:'/home/photolist',component:PhotoList },
+        { path:'/home/photoinfo',component:PhotoInfo,props:true },
+        { path:'/home/goodslist',component:GoodsList },
+        // { path:'/home/goodinfo/:id',component:GoodsInfo,props:true },
+        { path:'/home/goodsinfo',component:GoodsInfo,props:true },
     ],
     linkActiveClass:'mui-active' // 手动设置 被激活的 路由链接的高亮类名
 })
