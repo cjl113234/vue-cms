@@ -5,7 +5,7 @@
 
         <!-- 在这里放一个Header -->
         <mt-header fixed title="商城">
-            <span slot='left'>
+            <span slot='left' @click="goBack()" v-show="flag">
                 <mt-button icon='back'>返回</mt-button>
             </span>
         </mt-header>
@@ -29,7 +29,7 @@
 				<span class="mui-tab-label">会员</span>
 			</router-link>
 			<router-link class="my-tab-item" to="/shopcar">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">0</span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">{{ totalCount }}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="my-tab-item" to="/search">
@@ -41,8 +41,40 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
-    
+    data(){
+		return {
+			flag: true, // 默认显示返回按钮
+		}
+	},
+	methods:{
+		goBack(){
+			// 点击返回按钮，向后跳转
+			this.$router.go(-1)
+		}
+	},
+	created(){
+		if(this.$route.path === "/home"){
+			this.flag = false;
+		}else{
+			this.flag = true;
+		}
+	},
+	watch:{
+		// 当页面刷新的时候，不会触发watch中监听的路由地址变化
+		"$route.path":function(newVal,oldVal){
+			if(this.$route.path === "/home"){
+				this.flag = false;
+			}else{
+				this.flag = true;
+			}
+		}
+	},
+	computed:{
+		...mapGetters(['totalCount'])
+	}
 }
 </script>
 

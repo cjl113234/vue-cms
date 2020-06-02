@@ -19,8 +19,13 @@ import router from './router.js'
 import App from './components/App.vue'
 
 
+// 导入状态管理对象
+import store from './store.js'
+
+
 const vm = new Vue({
     el:'#app',
     render: c => c(App),
-    router // 挂载路由
+    router, // 挂载路由
+    store, // 挂载store
 })

@@ -14,7 +14,10 @@ const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
-    entry: path.join(__dirname,'./src/main.js'),// 指定要处理的JS文件路径
+    entry: {
+        app:path.join(__dirname,'./src/main.js'),// 指定要处理的JS文件路径
+        vendors:['vue','vuex','vue-router','axios','mint-ui'] // 这是第三方包的名称
+    },//项目的入口文件
     output: { // 指定输出文件的配置
         path: path.join(__dirname,'./dist/'),// 指定输出文件的存放路径
         filename:'bundle.js'// 指定输出文件的名称

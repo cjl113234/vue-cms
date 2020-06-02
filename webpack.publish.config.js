@@ -19,8 +19,16 @@ const extractTextPlugin = require('extract-text-webpack-plugin')
 
 const optimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
+
+// 导入VueLoaderPlugin
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 module.exports = {
-    entry: path.join(__dirname,'./src/main.js') ,// 指定要处理的JS文件路径
+    mode: 'production',
+    entry: {
+        app:path.join(__dirname,'./src/main.js'),// 指定要处理的JS文件路径
+        vendors:['vue','vuex','vue-router','axios','mint-ui'] // 这是第三方包的名称
+    },//项目的入口文件
     output: { // 指定输出文件的配置
         path: path.join(__dirname,'./dist/'),// 指定输出文件的存放路径
         filename:'index.js'// 指定输出文件的名称
@@ -44,10 +52,13 @@ module.exports = {
         new CleanWebpackPlugin(), // 指定每次重新发布的时候，删除output.path
 
         new webpack.DefinePlugin({ // 此插件的作用，相当于在项目的全局，配置了一些全局可用的变量；将来，我们引用第三方包中，比如Vue，会检查webpack中有没有提供process.env.NODE_ENV字段，如果有并且字段名字为"production"，就表示是生产发布环境，那么会移出不必要的Vue警告功能，并做其他优化
-            'process.env.NODE_ENV':'production',
+            'process.env': {
+                NODE_ENV: '"production"'
+            },
             'myVar':'"testDefinePlugin"'
         }),
         new extractTextPlugin('css/style.css'), // 抽取CSS文件到单独的目录中
+        new VueLoaderPlugin(), // 在vue-loader@15.x 版本，必须要配置VueLoaderPlugin()
 
         new optimizeCSSAssetsPlugin() // 自动压缩CSS
     ],
@@ -86,6 +97,10 @@ module.exports = {
             // 如果指定了limit参数，则只有图片的大小小于给定的值的时候，才会转为base64格式的图片，否则就不转换
 
             { test:/\.js$/,use:['babel-loader'],exclude:/node_modules/ }, // 添加转换JS文件的loader，其中，必须把node_modules目录设置为排除项，这样，在打包的时候，会忽略node_modules目录下的所有文件，否则项目运行不起来
+
+            { test:/\.vue$/,use:['vue-loader'] }, // 解析Vue组件的第三方loader
+
+            { test:/\.ttf|woff|woff2|eot|svg$/,use:['url-loader'] }, // 处理 样式中字体文件路径的问题
         ]
     },
     optimization: {
